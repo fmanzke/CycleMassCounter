@@ -9,4 +9,7 @@
 * silicone rubber tube
 * zip tie
 
+## Wiring
+![](CycleMassCounter.png)  
+
 to be continued ...
