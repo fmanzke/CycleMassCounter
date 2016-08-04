@@ -1,5 +1,6 @@
 # CycleMassCounter
-* counting cyclists during events like critical mass
+* counting the number of bicycles during events like critical mass
+* big 7-segment led live diplay
 * kick-off at cyclehack berlin 2016 http://cyclehackberlin.de/
 * inspired by http://www.cyclehack.com/catalogue/happy-counter/
 

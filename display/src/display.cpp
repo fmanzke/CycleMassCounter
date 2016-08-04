@@ -31,10 +31,10 @@
 #define CLOCK_PIN 12
 
 //overall brightness from 0 (off) to 255
-#define BRIGHTNESS 2
+#define BRIGHTNESS 50
 
 //delay for next number
-#define DELAY 500
+#define DELAY 100
 
 CRGB ledColorOn = CRGB::Green; // Color used for leds on
 CRGB ledColorOff = CRGB::Black; // Color used for leds off
@@ -59,14 +59,15 @@ int clockToValue(int hour, int minute)
 }
 
 // Convert time to array needet for display
-void valueToArray(int value) {
+void valueToArray(int valueParam) {
+        int value = valueParam;
         int cursor = 0;
         for (int m = 0; m < NUM_MODULES; m++) {
                 int digit = value % 10; // get last digit in value
                 for (int s = 0; s < NUM_SEGMENTS; s++) {
                         for (int l = 0; l < NUM_LED_PER_SEGMENT; l++) {
                                 if (digits[digit][s] == 1) {
-                                        leds[cursor] = ledColorOn;
+                                        leds[cursor] = CHSV(valueParam % 256, 255, 255);
                                 }
                                 else if (digits[digit][s] == 0) {
                                         leds[cursor] = ledColorOff;
@@ -92,12 +93,12 @@ void loop()  // Main loop
 void singleLight(){
         // Move a single led
         for (int ledIndex = 0; ledIndex < NUM_LEDS; ledIndex++) {
-                // Turn our current led on to white, then show the leds
-                leds[ledIndex] = ledColorOn;
+                // Turn our current led on, then show the leds
+                leds[ledIndex] = CHSV(ledIndex % 256, 255, 255);
                 // Show the leds (only one of which is set to white, from above)
                 FastLED.show();
                 // Wait a little bit
-                delay(10);
+                delay(DELAY / 5);
                 // Turn our current led back to black for the next loop around
                 leds[ledIndex] = ledColorOff;
         }
