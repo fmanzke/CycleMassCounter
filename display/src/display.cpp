@@ -17,7 +17,7 @@
 #include "Arduino.h"
 #include "FastLED.h"
 
-#define NUM_MODULES 3 // Number of modules
+#define NUM_MODULES 4 // Number of modules
 #define NUM_SEGMENTS 7 // Number of segments
 #define NUM_LED_PER_SEGMENT 3 // Number of leds per segment
 
@@ -35,6 +35,8 @@
 
 //delay for next number
 #define DELAY 100
+
+bool colorfade = false;
 
 CRGB ledColorOn = CRGB::Green; // Color used for leds on
 CRGB ledColorOff = CRGB::Black; // Color used for leds off
@@ -67,7 +69,10 @@ void valueToArray(int valueParam) {
                 for (int s = 0; s < NUM_SEGMENTS; s++) {
                         for (int l = 0; l < NUM_LED_PER_SEGMENT; l++) {
                                 if (digits[digit][s] == 1) {
-                                        leds[cursor] = CHSV(valueParam % 256, 255, 255);
+                                        if (colorfade)
+                                                leds[cursor] = CHSV(valueParam % 256, 255, 255);
+                                        else
+                                                leds[cursor] = ledColorOn;
                                 }
                                 else if (digits[digit][s] == 0) {
                                         leds[cursor] = ledColorOff;
